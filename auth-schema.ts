@@ -1,7 +1,7 @@
 import { boolean, integer,pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 
-export const user = pgTable("user", {
+export const userTable = pgTable("user", {
 					id: uuid('id').primaryKey().defaultRandom(),
 					name: text('name').notNull(),
  email: text('email').notNull().unique(),
@@ -11,7 +11,7 @@ export const user = pgTable("user", {
  updatedAt: timestamp('updated_at').$defaultFn(() => /* @__PURE__ */ new Date()).notNull()
 				});
 
-export const session = pgTable("session", {
+export const sessionTable = pgTable("session", {
 					id: uuid('id').primaryKey().defaultRandom(),
 					expiresAt: timestamp('expires_at').notNull(),
  token: text('token').notNull().unique(),
@@ -19,14 +19,14 @@ export const session = pgTable("session", {
  updatedAt: timestamp('updated_at').notNull(),
  ipAddress: text('ip_address'),
  userAgent: text('user_agent'),
- userId: uuid('user_id').notNull().references(()=> user.id, { onDelete: 'cascade' })
+ userId: uuid('user_id').notNull().references(()=> userTable.id, { onDelete: 'cascade' })
 				});
 
 export const account = pgTable("account", {
 					id: uuid('id').primaryKey().defaultRandom(),
 					accountId: text('account_id').notNull(),
  providerId: text('provider_id').notNull(),
- userId: uuid('user_id').notNull().references(()=> user.id, { onDelete: 'cascade' }),
+ userId: uuid('user_id').notNull().references(()=> userTable.id, { onDelete: 'cascade' }),
  accessToken: text('access_token'),
  refreshToken: text('refresh_token'),
  idToken: text('id_token'),
