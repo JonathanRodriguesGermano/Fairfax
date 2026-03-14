@@ -16,7 +16,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  Form,
+  Form, 
   FormControl,
   FormField,
   FormItem,
@@ -71,13 +71,13 @@ const SignUpForm = () => {
           onError: (error) => {
             if (error.error.code === "USER_ALREADY_EXISTS") {
               toast.error("E-mail já cadastrado.");
-              form.setError("email", { 
+              return form.setError("email", { 
                 message: "E-mail já cadastrado.",
                });
             }
             toast.error(error.error.message);
-          }
-        }
+          },
+        },
     });
   }
 
