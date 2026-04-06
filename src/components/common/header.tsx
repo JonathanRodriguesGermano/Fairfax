@@ -8,8 +8,15 @@ import { authClient } from "@/lib/auth-client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../ui/sheet";
 import { Cart } from "./cart";
+import MenuItem from "./menu-items";
 
 export const Header = () => {
   const { data: session } = authClient.useSession();
@@ -17,21 +24,19 @@ export const Header = () => {
   return (
     <header className="flex items-center justify-between p-5">
       <Link href="/">
-      <Image src="/logo.svg" alt="FAIRFAX" width={100} height={26.14} />
+        <Image src="/logo.svg" alt="FAIRFAX" width={100} height={26.14} />
       </Link>
 
       <div className="flex items-center gap-4">
         <Sheet>
           <SheetTrigger asChild>
-          <Button variant="outline" size="icon">
-          <MenuIcon />
-        </Button>
+            <Button variant="outline" size="icon">
+              <MenuIcon />
+            </Button>
           </SheetTrigger>
           <SheetContent>
             <SheetHeader>
-              <SheetTitle>
-                Menu
-              </SheetTitle>
+              <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
             <div className="px-5">
               {session?.user ? (
@@ -55,13 +60,6 @@ export const Header = () => {
                         </span>
                       </div>
                     </div>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => authClient.signOut()}
-                    >
-                      <LogOutIcon />
-                    </Button>
                   </div>
                 </>
               ) : (
@@ -74,6 +72,17 @@ export const Header = () => {
                   </Button>
                 </div>
               )}
+            </div>
+            <MenuItem />
+            <div className="flex gap-5 pl-6">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => authClient.signOut()}
+              >
+                <LogOutIcon />
+                Sair da conta
+              </Button>
             </div>
           </SheetContent>
         </Sheet>
