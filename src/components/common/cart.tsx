@@ -1,12 +1,21 @@
-"use client"
+"use client";
 
-import { ShoppingBasketIcon } from "lucide-react";
+import { ShoppingBasketIcon, ShoppingCart } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { formatCentsToBRL } from "@/helpers/money";
 import { useCart } from "@/hooks/queries/use-cart";
 
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "../ui/empty";
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
 import {
@@ -16,6 +25,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
+import { Spinner } from "../ui/spinner";
 import CartItem from "./cart-item";
 
 export const Cart = () => {
@@ -29,14 +39,62 @@ export const Cart = () => {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Carrinho</SheetTitle>
+          <SheetTitle className="flex items-center gap-3">
+            <ShoppingCart />
+            Carrinho
+          </SheetTitle>
         </SheetHeader>
         <div className="flex h-full flex-col px-5 pb-5">
           <div className="flex h-full max-h-full flex-col overflow-hidden">
             <ScrollArea className="h-full">
               <div className="flex h-full flex-col gap-8">
-                {cartIsLoading && <div>Carregando...</div>}
-                {cart?.items.map((item) => (
+                {cartIsLoading && (
+                  <Empty className="w-full">
+                    <EmptyHeader>
+                      <EmptyMedia variant="icon">
+                        <Spinner />
+                      </EmptyMedia>
+                      <EmptyTitle>Carregando...</EmptyTitle>
+                      <EmptyDescription>
+                        Aguarde enquanto verificamos se existe items no seu
+                        carrinho. Não atualize a página.
+                      </EmptyDescription>
+                    </EmptyHeader>
+                  </Empty>
+                )}
+
+                {!cartIsLoading && !cart?.items?.length && (
+                  <Empty className="flex h-full items-center justify-center px-5">
+                    <EmptyHeader>
+                      <EmptyMedia>
+                        <Image
+                          src="/compra.svg"
+                          alt="Success"
+                          width={300}
+                          height={300}
+                          className="mx-auto"
+                        />
+                      </EmptyMedia>
+                      <EmptyTitle>Carrinho vazio</EmptyTitle>
+                      <EmptyDescription>
+                        Que tal aproveitar para descobrir produtos incríveis?
+                        Temos novidades esperando por você!
+                      </EmptyDescription>
+                    </EmptyHeader>
+                    <EmptyContent>
+                      <Button variant="outline" size="sm" asChild>
+                        <Link
+                          href="/product-fashion"
+                          className="flex items-center gap-4 transition-colors hover:text-zinc-600"
+                        >
+                          Explorar produtos
+                        </Link>
+                      </Button>
+                    </EmptyContent>
+                  </Empty>
+                )}
+
+                {cart?.items?.map((item) => (
                   <CartItem
                     key={item.id}
                     id={item.id}
