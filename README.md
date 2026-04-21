@@ -37,22 +37,22 @@ Este projeto utiliza as tecnologias mais recentes do ecossistema React e Node.js
   <summary>Clique para ver mais telas</summary>
 
   <br> <h3>Tela de Home</h3>
-  <img src="/.github/assets/Home.png" alt="Home" width="100%" />
+  <img src="/.github/assets/home.png" alt="Home" width="100%" />
 
-  <br> <h3>Tela de Barbearia</h3>
-  <img src="/.github/assets/Barbearia.png" alt="Barbearia" width="100%" />
+  <br> <h3>Tela de Login</h3>
+  <img src="/.github/assets/login.png" alt="Login" width="100%" />
 
-  <br> <h3>Tela de Agendamento</h3>
-  <img src="/.github/assets/Agendamento.png" alt="Agendamento" width="100%" />
+  <br> <h3>Tela de Produtos</h3>
+  <img src="/.github/assets/produtos.png" alt="Produtos do usuario" width="100%" />
 
-  <br> <h3>Tela de Chat</h3>
-  <img src="/.github/assets/Chat.png" alt="Chat" width="100%" />
-
-  <br> <h3>Tela de Reservas</h3>
-  <img src="/.github/assets/Reserva.png" alt="Reserva" width="100%" />
+  <br> <h3>Tela de Pedidos</h3>
+  <img src="/.github/assets/pedidos.png" alt="Pedidos do usuario" width="100%" />
 
   <br> <h3>Tela de Endereço</h3>
-  <img src="/.github/assets/LocalReserva.png" alt="Endereço" width="100%" />
+  <img src="/.github/assets/endereco.png" alt="Endereço do usuario" width="100%" />
+
+  <br> <h3>Tela de Sucesso</h3>
+  <img src="/.github/assets/sucesso.png" alt="Sucesso do pedido" width="100%" />
 </details>
 
 ## 🔧 Como Rodar Localmente
