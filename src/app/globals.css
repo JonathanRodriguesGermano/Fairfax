@@ -127,3 +127,25 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes scrollX {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scrollX 40s linear infinite;
+  width: max-content;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+.mask-fade {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
