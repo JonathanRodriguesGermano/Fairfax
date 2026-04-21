@@ -71,10 +71,6 @@ const MenuItem = () => {
           Acessórios
         </Link>
       </div>
-
-      <div className="px-5">
-        <Separator />
-      </div>
     </div>
   );
 };

@@ -8,6 +8,7 @@ import { authClient } from "@/lib/auth-client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
 import {
   Sheet,
   SheetContent,
@@ -74,16 +75,25 @@ export const Header = () => {
               )}
             </div>
             <MenuItem />
-            <div className="flex gap-5 pl-6">
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => authClient.signOut()}
-              >
-                <LogOutIcon />
-                Sair da conta
-              </Button>
-            </div>
+            {session?.user ? (
+              <>
+                <div className="px-5">
+                  <Separator />
+                </div>
+                <div className="flex gap-5 pl-6">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    onClick={() => authClient.signOut()}
+                  >
+                    <LogOutIcon />
+                    Sair da conta
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
           </SheetContent>
         </Sheet>
         <Cart />
