@@ -27,7 +27,7 @@ const MenuItem = () => {
         </Link>
 
         <Link
-          href="/product-variant"
+          href="/em-breve"
           className="flex items-center gap-4 transition-colors hover:text-zinc-600"
         >
           <ShoppingBag className="h-5 w-5" />
