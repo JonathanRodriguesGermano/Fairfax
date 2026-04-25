@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  LogInIcon,
-  LogOutIcon,
-  MenuIcon,
-  SearchIcon,
-  UserIcon,
-} from "lucide-react";
+import { LogInIcon, LogOutIcon, MenuIcon, SearchIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -25,6 +19,7 @@ import {
 import { Cart } from "./cart";
 import { CategoryNav } from "./category-nav";
 import MenuItem from "./menu-items";
+import { UserAccountNav } from "./UserAccountNav";
 
 interface HeaderProps {
   showCategories?: boolean;
@@ -36,15 +31,8 @@ export const Header = ({ showCategories = true }: HeaderProps) => {
   return (
     <header className="flex flex-col gap-4 p-5 lg:px-10">
       <div className="flex w-full items-center justify-between">
-        <div className="hidden items-center gap-2 text-sm font-medium md:flex">
-          <UserIcon size={18} />
-          {session?.user ? (
-            <span>Olá, {session.user.name?.split(" ")[0]}</span>
-          ) : (
-            <Link href="/authentication" className="hover:underline">
-              Olá, faça seu login!
-            </Link>
-          )}
+        <div className="hidden md:flex">
+          <UserAccountNav />
         </div>
 
         <Link href="/" className="md:absolute md:left-1/2 md:-translate-x-1/2">
@@ -62,7 +50,7 @@ export const Header = ({ showCategories = true }: HeaderProps) => {
             <SearchIcon size={20} />
           </Button>
 
-          <div className="lg:hidden">
+          <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon">
@@ -101,6 +89,7 @@ export const Header = ({ showCategories = true }: HeaderProps) => {
                     </>
                   ) : (
                     <div className="flex items-center justify-between">
+                      {/* mobile */}
                       <h2 className="font-semibold">Olá. Faça seu login!</h2>
                       <Button size="icon" asChild variant="outline">
                         <Link href="/authentication">
@@ -133,6 +122,7 @@ export const Header = ({ showCategories = true }: HeaderProps) => {
               </SheetContent>
             </Sheet>
           </div>
+
           <Cart />
         </div>
       </div>
