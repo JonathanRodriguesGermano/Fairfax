@@ -8,15 +8,15 @@ export default async function EmBreve() {
     <div className="flex min-h-screen flex-col">
       <Header />
 
-      <main className="flex flex-1 items-center justify-center px-5 py-10 bg-neutral-300/50">
-        <div className="flex w-full max-w-md flex-col gap-10">
+      <main className="flex flex-1 items-center justify-center bg-neutral-300/50 px-5 py-10 md:px-6 lg:px-8">
+        <div className="flex w-full max-w-md flex-col gap-10 md:max-w-2xl">
           <div className="flex flex-col gap-3">
             <Skeleton className="h-6 w-2/3" />
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-3/4" />
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2 lg:gap-10">
             <Card>
               <CardHeader className="space-y-2">
                 <Skeleton className="h-4 w-2/3" />

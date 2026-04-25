@@ -18,10 +18,10 @@ const CheckoutSuccessPage = () => {
   return (
     <>
       <div className="flex min-h-screen flex-col">
-        <Header />
+        <Header showCategories={false} />
         <div className="flex-1">
           <Dialog open={true} onOpenChange={() => {}}>
-            <DialogContent className="text-center">
+            <DialogContent className="text-center sm:max-w-lg">
               <Image
                 src="/illustration.svg"
                 alt="Success"
@@ -39,7 +39,7 @@ const CheckoutSuccessPage = () => {
 
               <DialogFooter>
                 <Button className="rounded-full" size="lg" asChild>
-                  <Link href="my-orders">Ver meus pedidos</Link>
+                  <Link href="/my-orders">Ver meus pedidos</Link>
                 </Button>
                 <Button
                   className="rounded-full"

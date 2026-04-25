@@ -49,31 +49,34 @@ const IdentificationPage = async () => {
       0,
     ) * 0.1;
   return (
-    <div>
-      <Header />
-      <div className="space-y-4 px-5">
-        <Addresses
-          shippingAddresses={shippingAddresses}
-          defaultShippingAddressId={cart.shippingAddress?.id || null}
-        />
-        <CartSummary
-          subtotalInCents={cartTotalInCents}
-          totalInCents={cartTotalInCents + taxaTotalInCents}
-          taxaPriceInCents={taxaTotalInCents}
-          //fretePriceInCents={0}
-          products={cart.items.map((item) => ({
-            id: item.productVariant.id,
-            name: item.productVariant.product.name,
-            variantName: item.productVariant.name,
-            quantity: item.quantity,
-            priceInCents: item.productVariant.priceInCents,
-            imageUrl: item.productVariant.imageUrl,
-          }))}
-        />
+    <div className="flex min-h-screen flex-col">
+      <Header showCategories={false} />
+      <div className="flex-1">
+        <div className="space-y-4 px-5 md:mx-auto md:grid md:w-full md:max-w-7xl md:grid-cols-3 md:gap-6 md:space-y-0 md:px-6 lg:px-8">
+          <div className="md:col-span-2">
+            <Addresses
+              shippingAddresses={shippingAddresses}
+              defaultShippingAddressId={cart.shippingAddress?.id || null}
+            />
+          </div>
+          <div className="md:col-span-1">
+            <CartSummary
+              subtotalInCents={cartTotalInCents}
+              totalInCents={cartTotalInCents + taxaTotalInCents}
+              taxaPriceInCents={taxaTotalInCents}
+              products={cart.items.map((item) => ({
+                id: item.productVariant.id,
+                name: item.productVariant.product.name,
+                variantName: item.productVariant.name,
+                quantity: item.quantity,
+                priceInCents: item.productVariant.priceInCents,
+                imageUrl: item.productVariant.imageUrl,
+              }))}
+            />
+          </div>
+        </div>
       </div>
-      <div className="mt-12">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };

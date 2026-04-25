@@ -1,11 +1,12 @@
 import { desc } from "drizzle-orm";
-import Image from "next/image";
 
 import BrandsList from "@/components/common/brands-item";
 import CategorySelector from "@/components/common/category-selector";
 import Footer from "@/components/common/footer";
 import { Header } from "@/components/common/header";
 import ProductList from "@/components/common/product-list";
+import SectionBanner from "@/components/common/section-banner";
+import SectionBannerTwo from "@/components/common/section-banner-two";
 import { db } from "@/db";
 import { productTable } from "@/db/schema";
 
@@ -28,19 +29,10 @@ const Home = async () => {
     <>
       <Header />
 
-      <div className="space-y-6">
-        <div className="px-5">
-          <Image
-            src="/banner-01.png"
-            alt="Leve uma vida com estilo"
-            height={0}
-            width={0}
-            sizes="100vw"
-            className="h-auto w-full"
-          />
-        </div>
+      <div className="mx-auto w-full max-w-[1400px] space-y-10 px-3 md:px-8 lg:px-12">
+        <SectionBanner />
 
-        <BrandsList title="Marcas parceiras" />     
+        <BrandsList title="Marcas parceiras" />
 
         <ProductList products={products} title="Mais vendidos" />
 
@@ -49,18 +41,11 @@ const Home = async () => {
         </div>
 
         <div className="px-5">
-          <Image
-            src="/banner-02.png"
-            alt="Leve uma vida com estilo"
-            height={0}
-            width={0}
-            sizes="100vw"
-            className="h-auto w-full"
-          />
+          <SectionBannerTwo />
         </div>
         <ProductList products={newlyCreatedProducts} title="Novos produtos" />
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };

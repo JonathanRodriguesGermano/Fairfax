@@ -30,7 +30,7 @@ export default async function CategoriaPage({
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <div className="flex flex-1 flex-col gap-4 p-4 md:gap-6 md:p-8">
+      <div className="flex w-full flex-1 flex-col gap-4 p-4 md:mx-auto md:max-w-7xl md:gap-6 md:p-8 md:px-6 lg:px-8">
         <h1 className="text-xl font-bold capitalize md:text-3xl">
           Categoria: {category.name}
         </h1>
@@ -64,7 +64,6 @@ export default async function CategoriaPage({
                     {defaultVariant.color}
                   </span>
                   <span className="mt-1 font-bold text-zinc-900">
-                    {/* Transformando centavos em Reais (R$) */}
                     {(defaultVariant.priceInCents / 100).toLocaleString(
                       "pt-BR",
                       {
