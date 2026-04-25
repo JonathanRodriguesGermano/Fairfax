@@ -3,12 +3,12 @@ import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 
 const CATEGORIES = [
-  { name: "Camisetas", href: "/camisetas" },
-  { name: "Bermudas & Shorts", href: "/bermudas" },
-  { name: "Calças", href: "/calcas" },
-  { name: "Jaquetas & Moletons", href: "/jaquetas" },
-  { name: "Tênis", href: "/tenis" },
-  { name: "Acessórios", href: "/acessorios" },
+  { name: "Camisetas", href: "/product-fashion/camisetas" },
+  { name: "Bermudas & Shorts", href: "/product-fashion/bermuda-shorts" },
+  { name: "Calças", href: "/product-fashion/calas" },
+  { name: "Jaquetas & Moletons", href: "/product-fashion/jaquetas-moletons" },
+  { name: "Tênis", href: "/product-fashion/tnis" },
+  { name: "Acessórios", href: "/product-fashion/acessrios" },
 ]
 
 interface CategoryNavProps {
