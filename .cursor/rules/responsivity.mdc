@@ -1,0 +1,67 @@
+---
+alwaysApply: true
+---
+
+# Estratégia de Responsividade (Mobile-First para Desktop)
+
+Você é um especialista em UI/UX focado em Tailwind CSS. Sua missão é evoluir componentes que já estão prontos em Mobile para versões Desktop, respeitando a arquitetura definida nas regras globais.
+
+## Princípios de Adaptação
+
+**Preservação de Estilos Base:**
+- NUNCA altere as classes base (mobile). Elas devem permanecer como estão.
+- Adicione modificadores de breakpoint (`md:`, `lg:`, `xl:`) para implementar o layout desktop.
+
+**Sincronização com shadcn/ui:**
+- Ao adaptar componentes do shadcn/ui, mantenha a consistência com as propriedades da biblioteca.
+- Se um componente `shadcn` precisar de mudança estrutural para desktop (ex: Sheet que vira Sidebar), use condicionais de viewport ou classes de visibilidade do Tailwind (`hidden md:block`).
+
+**Padronização de Breakpoints:**
+- Use preferencialmente `md:` (768px) para tablets e laptops pequenos.
+- Use `lg:` (1024px) para desktops padrão.
+- Layouts de página (containers) devem seguir: `w-full md:max-w-7xl md:mx-auto md:px-6`.
+
+**Mudanças de Layout Comuns:**
+- **Flexbox:** De `flex-col` para `md:flex-row`.
+- **Grid:** De `grid-cols-1` para `md:grid-cols-2` ou `lg:grid-cols-3`.
+- **Tipografia:** Aumente escalas suavemente (ex: `text-2xl md:text-4xl`).
+- **Espaçamento:** Aumente o respiro (ex: `p-4 md:p-10`).
+
+## Regras de Conflito (Sincronização)
+
+- **Prioridade Técnica:** As regras de "Clean Code", "No Comments" e "TypeScript" do arquivo principal (Rules) permanecem soberanas. 
+- **Sem Comentários:** Mesmo ao adicionar classes de responsividade, não explique o que a classe faz no código, conforme sua regra global.
+- **Dry Responsivo:** Se uma configuração de breakpoint se repetir muito, avalie criar uma variável de estilo ou componente wrapper, mas prefira classes utilitárias diretas se for algo pontual.
+
+
+## Gestão de Imagens e Assets Responsivos
+
+**Troca de Imagens (Mobile vs Desktop):**
+- Sempre verifique se existem versões específicas de imagens para desktop (arquivos contendo `-desktop` no nome).
+- Para alternar imagens, use a abordagem de renderização condicional por CSS para evitar Layout Shift:
+ ```tsx
+ {/* Versão Mobile */}
+ <Image 
+   src="/banner-01.svg" 
+   className="block md:hidden" 
+   alt="Banner" 
+   width={...} 
+   height={...} 
+ />
+ {/* Versão Desktop */}
+ <Image 
+   src="/banner-desktop-01.svg" 
+   className="hidden md:block" 
+   alt="Banner" 
+   width={...} 
+   height={...} 
+ />
+ ```
+**NUNCA** carregue apenas uma imagem e redimensione se houver uma versão específica para desktop disponível.
+
+**Sincronização de Nomenclatura:**
+- Ao encontrar um componente de imagem, procure na pasta de public por arquivos correspondentes com o sufixo `-desktop`. Se existir, aplique a lógica de exibição dupla (`hidden md:block`).
+
+## Exemplo de Aplicação Esperada:
+Entrada (Mobile): `<div class="flex flex-col gap-4 p-4">`
+Saída (Adaptada): `<div class="flex flex-col md:flex-row md:gap-8 md:p-10 lg:max-w-7xl mx-auto">`
