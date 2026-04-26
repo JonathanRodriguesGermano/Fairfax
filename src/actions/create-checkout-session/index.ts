@@ -4,11 +4,9 @@ import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import Stripe from "stripe";
 
+import { getCalculateSubtotal, getCalculateTax } from "@/data/priceInCents/get";
 import { db } from "@/db";
-import {
-  orderItemTable,
-  orderTable,
-} from "@/db/schema";
+import { orderItemTable, orderTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 
 import {
@@ -45,9 +43,8 @@ export const createCheckoutSession = async (
     },
   });
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-  const taxInCents = Math.round(
-    orderItems.reduce((acc, item) => acc + item.priceInCents * item.quantity, 0) * 0.1
-  );
+  const subtotal = getCalculateSubtotal(orderItems);
+  const taxInCents = getCalculateTax(subtotal);
   const checkoutSession = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     mode: "payment",
@@ -57,35 +54,35 @@ export const createCheckoutSession = async (
       orderId,
     },
     line_items: [
-       ...orderItems.map((orderItem) => {
-      return {
+      ...orderItems.map((orderItem) => {
+        return {
+          price_data: {
+            currency: "brl",
+            product_data: {
+              name: `${orderItem.productVariant.product.name} - ${orderItem.productVariant.name}`,
+              description: orderItem.productVariant.product.description,
+              images: [orderItem.productVariant.imageUrl],
+            },
+            // Em centavos
+            unit_amount: orderItem.priceInCents,
+          },
+          quantity: orderItem.quantity,
+        };
+      }),
+      //add taxa
+      {
         price_data: {
           currency: "brl",
           product_data: {
-            name: `${orderItem.productVariant.product.name} - ${orderItem.productVariant.name}`,
-            description: orderItem.productVariant.product.description,
-            images: [orderItem.productVariant.imageUrl],
+            name: "Taxa estimada",
+            images: [
+              "https://raw.githubusercontent.com/JonathanRodriguesGermano/Fairfax/refs/heads/main/public/illustration.svg",
+            ],
           },
-          // Em centavos
-          unit_amount: orderItem.priceInCents,
+          unit_amount: taxInCents,
         },
-        quantity: orderItem.quantity,
-      };
-    }),
-     //add taxa
-    {
-      price_data: {
-        currency: "brl",
-        product_data: {
-          name: "Taxa estimada",
-          images: [
-            "https://raw.githubusercontent.com/JonathanRodriguesGermano/Fairfax/refs/heads/main/public/illustration.svg"
-          ],
-        },
-        unit_amount: taxInCents,
+        quantity: 1,
       },
-      quantity: 1,
-    }
     ],
   });
   return checkoutSession;

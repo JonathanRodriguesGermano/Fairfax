@@ -1,12 +1,11 @@
-import { eq } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import Footer from "@/components/common/footer";
 import { Header } from "@/components/common/header";
-import { db } from "@/db";
-import { categoryTable, productTable } from "@/db/schema";
+import { getCategoryBySlug } from "@/data/categories/get";
+import { getProductsByCategoryId } from "@/data/products/get";
 
 export default async function CategoriaPage({
   params,
@@ -14,18 +13,11 @@ export default async function CategoriaPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const category = await db.query.categoryTable.findFirst({
-    where: eq(categoryTable.slug, slug),
-  });
+  const category = await getCategoryBySlug(slug);
   if (!category) {
     return notFound();
   }
-  const products = await db.query.productTable.findMany({
-    where: eq(productTable.categoryId, category.id),
-    with: {
-      variants: true,
-    },
-  });
+  const products = await getProductsByCategoryId(category.id);
 
   return (
     <div className="flex min-h-screen flex-col">

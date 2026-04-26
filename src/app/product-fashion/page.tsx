@@ -3,14 +3,10 @@ import Link from "next/link";
 
 import Footer from "@/components/common/footer";
 import { Header } from "@/components/common/header";
-import { db } from "@/db";
+import { getProductsWithVariants } from "@/data/products/get";
 
 export default async function AllProductsPage() {
-  const products = await db.query.productTable.findMany({
-    with: {
-      variants: true,
-    },
-  });
+  const products = await getProductsWithVariants();
 
   return (
     <div className="flex min-h-screen flex-col">
