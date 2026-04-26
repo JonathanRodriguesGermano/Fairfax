@@ -1,13 +1,15 @@
 import "server-only";
 
 export interface PriceableItem {
-  priceInCents: number;
   quantity: number;
+  productVariant: {
+    priceInCents: number;
+  };
 }
 
 export const getCalculateSubtotal = (items: PriceableItem[]): number => {
   return items.reduce(
-    (acc, item) => acc + item.priceInCents * item.quantity,
+    (acc, item) => acc + item.productVariant.priceInCents * item.quantity,
     0,
   );
 };

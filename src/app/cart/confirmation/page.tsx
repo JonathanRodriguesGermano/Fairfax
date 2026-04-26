@@ -5,7 +5,7 @@ import Footer from "@/components/common/footer";
 import { Header } from "@/components/common/header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getFullCartByUserId } from "@/data/cart/get";
-import { calculateTotals } from "@/data/priceInCents/get";
+import { getCalculateTotals } from "@/data/priceInCents/get";
 import { auth } from "@/lib/auth";
 
 import CartSummary from "../components/cart-summary";
@@ -25,7 +25,7 @@ const ConfirmationPage = async () => {
     redirect("/");
   }
 
-  const { subtotal, tax, total } = calculateTotals(cart.items);
+  const { subtotal, taxa, total } = getCalculateTotals(cart.items);
   if (!cart.shippingAddress) {
     redirect("/cart/identification");
   }
@@ -54,7 +54,7 @@ const ConfirmationPage = async () => {
           <div className="md:col-span-1">
             <CartSummary
               subtotalInCents={subtotal}
-              taxaPriceInCents={tax}
+              taxaPriceInCents={taxa}
               totalInCents={total}
               products={cart.items.map((item) => ({
                 id: item.productVariant.id,
